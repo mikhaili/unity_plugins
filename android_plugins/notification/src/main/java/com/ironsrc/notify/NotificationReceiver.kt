@@ -13,7 +13,9 @@ import android.support.v4.app.NotificationCompat
 import android.util.Log
 
 class NotificationReceiver : BroadcastReceiver() {
-    val TAG = "NotificationReceiver"
+    companion object {
+        private val TAG = "NotificationReceiver"
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -23,21 +25,23 @@ class NotificationReceiver : BroadcastReceiver() {
             "CANCEL_NOTIFICATION" -> cancelNotification(context, intent, _DEBUG)
             else -> {
                 val notificationId = intent.getIntExtra(Event.FIELD_ID, -1)
-                val notification = notificationId.takeIf { it > 0 }?.let { createNotification(context, notificationId, intent, _DEBUG) }
+                val notification = notificationId.takeIf { it > 0 }
+                        ?.let {
+                            createNotification(context, it, intent, _DEBUG)
+                        }
 
                 notification?.let {
 
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                    notificationManager.notify(notificationId, notification)
+                    notificationManager.notify(notificationId, it)
                     val notificationTTL = intent.getLongExtra(Event.FIELD_OPTION_NOTIFY_TTL, -1L)
 
                     notificationTTL
                             .takeIf { it >= 0 }
                             ?.let {
-
                                 scheduleNotificationExpiration(context,
                                         intent,
-                                        notificationTTL,
+                                        it,
                                         notificationId)
                             }
                 }
@@ -85,7 +89,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     .setOnlyAlertOnce(true)
                     .setContentIntent(contentIntent)
 
-            info?.let { builder.setContentInfo(info) }
+            info?.let { builder.setContentInfo(it) }
 
             try {
                 builder.setLargeIcon(BitmapFactory.decodeResource(context.resources, icon))
@@ -108,8 +112,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val notificationId = intent.getIntExtra(Event.FIELD_ID, -1)
         notificationId.takeIf { it >= 0 }
                 ?.let {
-                    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                    notificationManager.cancel(notificationId)
+                    (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(it)
 
                 }
     }

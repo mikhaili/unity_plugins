@@ -9,11 +9,12 @@ class Notify {
     fun cancelNotification(context: Context, notificationId: Int) {
         notificationId.takeIf { it >= 0 }
                 ?.let {
-                    val intent = Event.createCancellationEvent(context, notificationId)
-                    val alarmManager = Scheduler.getInstance(context)
-                    alarmManager.cancel(context, intent)
-                    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                    notificationManager.cancel(notificationId)
+                    Scheduler
+                            .getInstance(context)
+                            .cancel(context,
+                                    Event.createCancellationEvent(context, it))
+                    (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+                            .cancel(it)
 
                 } ?: print("Invalid notification ID")
     }

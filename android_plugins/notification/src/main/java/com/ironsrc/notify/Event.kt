@@ -73,7 +73,7 @@ object Event {
         intent.putExtra(FIELD_ICON, icon)
 
         url.isNotEmpty().let {
-            intent.putExtra(FIELD_URL, url)
+            intent.putExtra(FIELD_URL, it)
         }
 
         return intent
