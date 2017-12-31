@@ -29,12 +29,12 @@ object Event {
 
     fun createPendingEvent(context: Context,
                            notification: Notify.Notification): PendingIntent {
-        val intent = Intent(context, NotificationReceiver::class.java)
-
-        intent.putExtra(FIELD_ID, notification.id)
-
-        intent.putExtras(updateWithAssets(notification.assets))
-        intent.putExtras(updateWithAction(notification.action))
+        val intent = Intent(context, NotificationReceiver::class.java).apply {
+            action = "SCHEDULE_NOTIFICATION"
+            putExtra(FIELD_ID, notification.id)
+            putExtras(updateWithAssets(notification.assets))
+            putExtras(updateWithAction(notification.action))
+        }
 
         return PendingIntent.getBroadcast(context,
                 notification.id,
@@ -43,19 +43,19 @@ object Event {
     }
 
     private fun updateWithAction(action: Notify.Action): Intent {
-        val intent = Intent()
-        intent.putExtra(FIELD_OPTION_ACTIVITY, action.triggerActivity)
-        intent.putExtra(FIELD_OPTION_NOTIFY_TTL, action.expirationAtMills)
-        intent.putExtra(FIELD_URL, action.url)
-        return intent
+        return Intent().apply {
+            putExtra(FIELD_OPTION_ACTIVITY, action.triggerActivity)
+            putExtra(FIELD_OPTION_NOTIFY_TTL, action.expirationAtMills)
+            putExtra(FIELD_URL, action.url)
+        }
     }
 
     private fun updateWithAssets(notification: Notify.Assets): Intent {
-        val intent = Intent()
-        intent.putExtra(FIELD_TITLE, notification.title)
-        intent.putExtra(FIELD_TEXT, notification.text)
-        intent.putExtra(FIELD_ICON, notification.icon)
-        return intent
+        return Intent().apply {
+            putExtra(FIELD_TITLE, notification.title)
+            putExtra(FIELD_TEXT, notification.text)
+            putExtra(FIELD_ICON, notification.icon)
+        }
     }
 
     fun create(context: Context,
@@ -65,17 +65,15 @@ object Event {
                title: String,
                url: String = "",
                icon: Int): Intent {
-        val intent = Intent(context, cls)
+        return Intent(context, cls).apply {
+            putExtra(FIELD_ID, id)
+            putExtra(FIELD_TITLE, title)
+            putExtra(FIELD_TEXT, text)
+            putExtra(FIELD_ICON, icon)
 
-        intent.putExtra(FIELD_ID, id)
-        intent.putExtra(FIELD_TITLE, title)
-        intent.putExtra(FIELD_TEXT, text)
-        intent.putExtra(FIELD_ICON, icon)
-
-        url.isNotEmpty().let {
-            intent.putExtra(FIELD_URL, it)
+            url.isNotEmpty().also {
+                putExtra(FIELD_URL, it)
+            }
         }
-
-        return intent
     }
 }
