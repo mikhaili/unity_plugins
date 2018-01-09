@@ -30,7 +30,10 @@ object Event {
     fun createPendingEvent(context: Context,
                            notification: Notify.Notification): PendingIntent {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
-            action = "SCHEDULE_NOTIFICATION"
+            action = notification.action.expirationAtMills.takeIf { it > -1 }?.let {
+                "SCHEDULE_NOTIFICATION_WITH_EXPIRATION"
+            } ?:"SCHEDULE_NOTIFICATION"
+
             putExtra(FIELD_ID, notification.id)
             putExtras(updateWithAssets(notification.assets))
             putExtras(updateWithAction(notification.action))

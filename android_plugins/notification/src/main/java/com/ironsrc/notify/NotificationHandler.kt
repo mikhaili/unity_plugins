@@ -21,16 +21,13 @@ class NotificationHandler(val context: Context,
     internal fun handle(action: String) {
         when (action) {
             "CANCEL_NOTIFICATION" -> cancelNotification()
-            "SCHEDULE_NOTIFICATION" -> {
+            "SCHEDULE_NOTIFICATION" -> scheduleNotification()
+            "SCHEDULE_NOTIFICATION_WITH_EXPIRATION" -> {
                 scheduleNotification()
-                intent.getLongExtra(Event.FIELD_OPTION_NOTIFY_TTL, -1L)
-                        .takeIf { it >= 0 }
-                        ?.also {
-                            scheduleNotificationExpiration(it)
-                        }
+                scheduleNotificationExpiration()
             }
             else -> {
-                throw Exception("Not supported action")
+                throw Exception("Not supported action $action")
             }
         }
     }
@@ -91,7 +88,7 @@ class NotificationHandler(val context: Context,
                 setSmallIcon(icon)
                 setContentTitle(title)
                 setContentText(text)
-                setDefaults(Notification.DEFAULT_SOUND)
+                //1setDefaults(Notification.DEFAULT_SOUND)
                 setAutoCancel(true)
                 setOnlyAlertOnce(true)
                 setContentIntent(PendingIntent.getActivity(context,
@@ -121,18 +118,22 @@ class NotificationHandler(val context: Context,
     }
 
 
-    private fun scheduleNotificationExpiration(ttl: Long) {
-        Scheduler.getInstance(context).apply {
-            intent.action = "CANCEL_NOTIFICATION"
-            val pendingIntent = PendingIntent.getBroadcast(context,
-                    notificationId,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
-            schedule(context,
-                    pendingIntent,
-                    Scheduler.Options(triggerAtMillis = ttl))
+    private fun scheduleNotificationExpiration() {
+        intent.getLongExtra(Event.FIELD_OPTION_NOTIFY_TTL, -1L)
+                .takeIf { it >= 0 }
+                ?.also {
+                    Scheduler.getInstance(context).apply {
+                        intent.action = "CANCEL_NOTIFICATION"
+                        val pendingIntent = PendingIntent.getBroadcast(context,
+                                notificationId,
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT)
+                        schedule(context,
+                                pendingIntent,
+                                Scheduler.Options(triggerAtMillis = it))
+                    }
 
-        }
+                }
     }
 
 }

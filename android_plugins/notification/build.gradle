@@ -35,5 +35,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
+task copyJarToDist(type: Copy) {
+    from 'build/intermediates/intermediate-jars/release/classes.jar'
+    into '../dist/notification_plugins'
+    rename { String fileName ->
+        fileName.replace("classes", "notification_plugin")
+    }
+}
+
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
