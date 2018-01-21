@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<receiver android:name="com.ironsrc.notify.NotificationReceiver"></receiver>-->
+        <receiver android:name="com.ironsrc.notify.NotificationReceiver"></receiver>
     </application>
 
 </manifest>

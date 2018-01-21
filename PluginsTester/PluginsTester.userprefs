@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NativeAndroid.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CallSample.cs">
     <Files>
-      <File FileName="Assets/Scripts/NativeAndroid.cs" Line="9" Column="54" />
+      <File FileName="Assets/Scripts/CallSample.cs" Line="22" Column="22" />
+      <File FileName="Assets/Scripts/NativeAndroid.cs" Line="1" Column="1" />
+      <File FileName="Assets/Plugins/Notifications/NotificationsPlugin.cs" Line="36" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

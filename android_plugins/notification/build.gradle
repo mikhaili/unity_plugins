@@ -3,16 +3,13 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 26
 
-
-
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -32,7 +29,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 task copyJarToDist(type: Copy) {
@@ -42,7 +38,3 @@ task copyJarToDist(type: Copy) {
         fileName.replace("classes", "notification_plugin")
     }
 }
-
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'

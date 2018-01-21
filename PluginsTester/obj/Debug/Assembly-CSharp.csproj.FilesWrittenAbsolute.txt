@@ -20,3 +20,5 @@
 /Users/mikhaili/projects/unity_plugins.git/PluginsTester/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/mikhaili/projects/unity_plugins.git/PluginsTester/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/mikhaili/projects/unity_plugins.git/PluginsTester/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/mikhaili/projects/unity_plugins.git/PluginsTester/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/mikhaili/projects/unity_plugins.git/PluginsTester/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb

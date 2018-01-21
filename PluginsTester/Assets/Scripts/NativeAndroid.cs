@@ -6,9 +6,9 @@ public class NativeAndroid : MonoBehaviour {
 
 	public void SayMyName () {
 		using (AndroidJavaObject helper = new AndroidJavaObject ("com.ironsrc.notify.unity.UnityNotifyHelper")) { 
-			AndroidJavaObject actionObject = helper.CallStatic<AndroidJavaObject>("createActionObj", "1000");
+			helper.Call("createActionObj", "aaa", "bbb", 1000);
 
-			Debug.Log("testFunction url = " + actionObject.Get<string>("url")); 
+		//	Debug.Log("testFunction url = " + actionObject.Get<string>("url")); 
 
 			helper.Call ("testFunction");
 		} 
@@ -26,7 +26,7 @@ public class NativeAndroid : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SayMyName ();
+		//SayMyName ();
 	}
 	
 	// Update is called once per frame
