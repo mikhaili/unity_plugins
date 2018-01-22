@@ -8,12 +8,15 @@ package com.ironsrc.notify.unity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.ironsrc.notify.Notify;
 
 import java.lang.reflect.Field;
 
 public class UnityNotifyHelper {
+
+    private static final String TAG = UnityNotifyHelper.class.getSimpleName();
 
     public void cancelNotification(int notificationId) {
         Notify notify = new Notify();
@@ -27,6 +30,13 @@ public class UnityNotifyHelper {
                                      long triggerAtMillis,
                                      String url,
                                      long expirationAtMills) {
+        Context context = getContext();
+
+        int icon = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        if(icon == 0) {
+            Log.e(TAG, "Icon NOT exist, please provide valid icon name, the schedule is FAILED");
+        }
+
         Notify notify = new Notify();
 
         Notify.Action action = new Notify.Action(
@@ -36,9 +46,6 @@ public class UnityNotifyHelper {
                 ""
         );
 
-        Context context = getContext();
-
-        int icon = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
 
         Notify.Assets assets = new Notify.Assets(
                 title,

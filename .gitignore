@@ -50,6 +50,10 @@ android_plugins/.idea/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+#Unity
+PluginsTester/Temp/
+PluginsTester/Library/*
+
 # Freeline
 freeline.py
 freeline/
