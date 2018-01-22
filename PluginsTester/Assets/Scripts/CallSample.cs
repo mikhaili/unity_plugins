@@ -13,20 +13,38 @@ public class CallSample : MonoBehaviour {
         public string to;
     }
 
-    public void Awake() {
-		Debug.Log("Awake ScheduleNotification"); 
+	public void ScheduleNotification() {
+		Debug.Log("NotificationsPlugin | ScheduleNotification"); 
 		NotificationsPlugin.ScheduleNotification(
-            123,
-            "Hello world",
-            "Yo Yo Yo",
+			123,
+			"Hello world 3000",
+			"Yo Yo Yo",
 			"notify_icon_small",
-            3000,
-			"http;//google.com");
-    }
+			3000,
+			"http://google.com");
+	}
+
+	public void ScheduleNotificationWithExpiration() {
+		Debug.Log("NotificationsPlugin | ScheduleNotification"); 
+		NotificationsPlugin.ScheduleNotification(
+			123,
+			"Hello world 10000",
+			"Yo Yo Yo",
+			"notify_icon_small",
+			3000,
+			"http://google.com",
+			10000
+		);
+	}
+
+	public void Cancel() {
+		Debug.Log("NotificationsPlugin | Cancel"); 
+		NotificationsPlugin.CancelNotification(123);
+	}
 
 
 	void Start () {
-		Awake ();
+//		ScheduleNotification ();
 	}
 
     private DateTime FindValidTime(DateTime desiredTime) {

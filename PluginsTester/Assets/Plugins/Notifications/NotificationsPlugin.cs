@@ -16,11 +16,15 @@ public static class NotificationsPlugin {
 #endif
 
     /// <summary>
-    /// Adds the notification.
+	/// Schedule notification
     /// </summary>
     /// <param name="id">Notification ID. Can be used to cancel the notification.</param>
-    /// <param name="when">Notification time in millis from now.</param>
-    /// <param name="info">Short text below the notification time on the right (optional).</param>
+	/// <param name="title">Title of the notification.</param>
+	/// <param name="text">Text of the notification.</param>
+	/// <param name="iconName">Icon of the notification.</param>
+	/// <param name="triggerAtMillis">Time to trigger notification.</param>
+	/// <param name="url">Url to be engage</param>
+	/// <param name="expirationAtMills">Expiration of the notification.</param>
 	public static void ScheduleNotification(int id,
 			string title,
 			string text,
@@ -37,6 +41,10 @@ public static class NotificationsPlugin {
 #endif
 	}
 
+		/// <summary>
+		/// Cancel notification
+		/// </summary>
+		/// <param name="id">Notification ID of the notification.</param>
         public static void CancelNotification(int id) {
 #if UNITY_EDITOR
 #elif UNITY_ANDROID
