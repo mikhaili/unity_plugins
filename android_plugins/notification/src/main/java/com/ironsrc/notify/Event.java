@@ -12,6 +12,7 @@ class Event {
     static String FIELD_ICON = "icon";
     static String FIELD_INFO = "info";
     static String FIELD_ID = "id";
+    static String FIELD_ACTION = "action";
 
     static String FIELD_OPTION_ACTIVITY = "activity";
     static String FIELD_OPTION_DEBUG = "debug";
@@ -21,7 +22,7 @@ class Event {
 
     static PendingIntent createCancellationEvent(Context context, int notificationId) {
         Intent intent = new Intent(context, NotificationReceiver.class);
-        intent.putExtra(FIELD_ID, notificationId);
+//        intent.putExtra(FIELD_ID, notificationId);
         return PendingIntent.getBroadcast(context,
                 notificationId,
                 intent,
@@ -35,8 +36,8 @@ class Event {
         String action = (notification.action.expirationAtMills > -1) ?
                 "SCHEDULE_NOTIFICATION_WITH_EXPIRATION"
                 : "SCHEDULE_NOTIFICATION";
-        intent.setAction(action);
         intent.putExtra(FIELD_ID, notification.id);
+        intent.putExtra(FIELD_ACTION, action);
 
         intent.putExtra(FIELD_TITLE, notification.assets.title);
         intent.putExtra(FIELD_TEXT, notification.assets.text);

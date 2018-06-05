@@ -17,7 +17,7 @@ class NotificationHandler {
     void handle(Context context, Intent intent) throws Exception {
         _DEBUG = intent.getBooleanExtra(Event.FIELD_OPTION_DEBUG, false);
         int notificationId = intent.getIntExtra(Event.FIELD_ID, -1);
-        String action = intent.getAction();
+        String action = intent.getStringExtra(Event.FIELD_ACTION);
         notificationHelper = new NotificationHelper(_DEBUG);
         switch (action) {
             case "CANCEL_NOTIFICATION":
@@ -62,7 +62,7 @@ class NotificationHandler {
     private void scheduleNotificationExpiration(Context context, Intent intent, int notificationId) {
         long expirationTime = intent.getLongExtra(Event.FIELD_OPTION_NOTIFY_TTL, -1L);
         if (expirationTime >= 0) {
-            intent.setAction("CANCEL_NOTIFICATION");
+            intent.putExtra(Event.FIELD_ACTION, "CANCEL_NOTIFICATION");
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     notificationId,
                     intent,
