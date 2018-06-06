@@ -3,6 +3,7 @@ package com.ironsrc.notify;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 class Event {
@@ -53,6 +54,13 @@ class Event {
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+
+    public static final String ID_PARAM = "NotifID";
+    public static final String TITLE_PARAM = "NotifTitle";
+    public static final String TEXT_PARAM = "NotifText";
+    public static final String DATA_PARAM = "Data";
+    public static final String ACTION_PARAM = "Action";
+
     static Intent create(Context context,
                          Class<?> cls,
                          int id,
@@ -61,14 +69,24 @@ class Event {
                          String url,
                          int icon) {
         Intent intent = new Intent(context, cls);
-        intent.putExtra(FIELD_ID, id);
-        intent.putExtra(FIELD_TITLE, title);
-        intent.putExtra(FIELD_TEXT, text);
+        intent.putExtra(ID_PARAM, id);
+        intent.putExtra(TITLE_PARAM, title);
+        intent.putExtra(TEXT_PARAM, text);
         intent.putExtra(FIELD_ICON, icon);
 
         if (TextUtils.isEmpty(url)) {
             intent.putExtra(FIELD_URL, url);
         }
+        return intent;
+    }
+
+    static Intent create(
+            String action,
+            int id,
+            String url) {
+        Intent intent = new Intent(action);
+        intent.putExtra(ID_PARAM, id);
+        intent.setData(Uri.parse(url));
         return intent;
     }
 }

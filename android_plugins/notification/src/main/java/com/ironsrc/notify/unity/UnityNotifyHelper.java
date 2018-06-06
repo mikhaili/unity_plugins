@@ -1,10 +1,5 @@
 package com.ironsrc.notify.unity;
 
-//import android.app.Activity
-//import android.content.Context
-//import android.util.Log
-//import com.ironsrc.notify.Notify
-//
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +12,12 @@ import java.lang.reflect.Field;
 public class UnityNotifyHelper {
 
     private static final String TAG = UnityNotifyHelper.class.getSimpleName();
+
+    public String getExtras() {
+        Notify notify = new Notify();
+        return notify.getExtras(getContext());
+    }
+
 
     public void cancelNotification(int notificationId) {
         Notify notify = new Notify();

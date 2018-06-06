@@ -24,11 +24,11 @@ class NotificationHandler {
                 cancelNotification(context, notificationId);
                 break;
             case "SCHEDULE_NOTIFICATION":
-                scheduleNotification(context, intent, notificationId);
+                fireNotification(context, intent, notificationId);
                 break;
 
             case "SCHEDULE_NOTIFICATION_WITH_EXPIRATION":
-                scheduleNotification(context, intent, notificationId);
+                fireNotification(context, intent, notificationId);
                 scheduleNotificationExpiration(context, intent, notificationId);
                 break;
             default:
@@ -44,7 +44,7 @@ class NotificationHandler {
         nm.cancel(notificationId);
     }
 
-    private void scheduleNotification(Context context, Intent intent, int notificationId) throws Exception {
+    private void fireNotification(Context context, Intent intent, int notificationId) throws Exception {
         if (notificationId < 0) {
             throw new Exception("Failed scheduler notification " + notificationId);
         }
@@ -55,7 +55,7 @@ class NotificationHandler {
             nm.notify(notificationId, notification);
             return;
         }
-        throw new Exception("Failed scheduler notification");
+        throw new Exception("Failed fireNotification notification");
     }
 
 

@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -41,9 +40,9 @@ class NotificationHelper {
         }
 
         if (!TextUtils.isEmpty(url)) {
-            unityIntent = new Intent(Intent.ACTION_VIEW);
-            unityIntent.setData(Uri.parse(url));
+            unityIntent = Event.create(Intent.ACTION_VIEW, notificationId, url);
         }
+
         if (unityIntent == null) {
             throw new IllegalArgumentException("Not defined intent type");
         }
